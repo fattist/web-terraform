@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::fattist-ops-terraform/ecs/platform/config"
+      ],
+      "Effect": "Allow"
+    },{
+      "Action": [
+        "cloudwatch:*",
+        "ec2:*",
+        "ecr:*",
+        "ecs:*",
+        "elasticloadbalancing:*",
+        "iam:*",
+        "logs:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}

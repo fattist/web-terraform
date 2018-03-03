@@ -1,0 +1,38 @@
+create:
+  - 'setup'
+  - 'shell:requirements'
+  - 'kube:preflight'
+  - 'shell:region'
+  - 'kube:available'
+  - 'shell:kube-init'
+
+encrypt:
+  - 'copy:vault'
+  - 'vault'
+
+install:
+  - 'shell:kube-latest'
+  - 'shell:kube-install'
+
+k8:
+  - 'create'
+  - 'shell:kube-cleanup'
+  # - 'render'
+  # - 'validate'
+
+render:
+  - 'shell:render-credentials'
+  - 'shell:render-stack'
+
+setup:
+  - 'env'
+  - 'encrypt'
+  - 'decrypt'
+  - 'config'
+
+terraform:
+  - 'setup'
+  - 'ops'
+
+validate:
+  - 'shell:validate'

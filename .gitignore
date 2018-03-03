@@ -1,0 +1,12 @@
+.DS_Store
+
+# OPS
+node_modules/*
+secrets/*
+vault/**/vault-pass.txt
+
+# Terraform
+tf/.generated/*
+tf/.terraform/*
+tf/output/*
+tf/terraform.tfstate.backup
