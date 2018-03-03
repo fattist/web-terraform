@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "react-distribution" {
   enabled = true
   price_class = "PriceClass_100"
 
-  aliases = ["fatt.ist"]
+  aliases = ["*.fatt.ist", "fatt.ist"]
 
   origin {
     domain_name = "${var.origin_domain}"
@@ -27,6 +27,8 @@ resource "aws_cloudfront_distribution" "react-distribution" {
       origin_ssl_protocols = ["TLSv1", "TLSv1.1", "TLSv1.2"]
     }
   }
+
+  default_root_object = "index.html"
 
   cache_behavior {
     path_pattern = "/"
@@ -43,7 +45,7 @@ resource "aws_cloudfront_distribution" "react-distribution" {
       }
     }
 
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl = 14400
     default_ttl = 14400
     max_ttl = 14400
@@ -89,6 +91,7 @@ resource "aws_cloudfront_distribution" "react-distribution" {
     Environment = "env-${element(var.clients, count.index)}-production-${element(var.clients, count.index)}"
   }
 
+  # ACM ran manually out of US-EAST-1
   viewer_certificate {
     cloudfront_default_certificate = true
   }

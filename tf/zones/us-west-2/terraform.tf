@@ -25,6 +25,12 @@ module "s3" {
   env = "${var.AWS_ENVIRONMENT}"
 }
 
+module "s3-production" {
+  source = "./modules/aws/s3/assets"
+  env = "${var.AWS_ENVIRONMENT}"
+  application = "web"
+}
+
 # NETWORKING - VPC
 ##################
 
@@ -172,6 +178,10 @@ module "s3" {
 
 # CLOUDFRONT : global
 #####################
+module "cf-production" {
+  source = "./modules/aws/cf/production"
+  origin_domain = "${module.s3-production.dns}"
+}
 
 # OUTPUT
 ########

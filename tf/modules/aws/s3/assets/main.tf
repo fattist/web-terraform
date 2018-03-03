@@ -1,4 +1,5 @@
 variable "env" {}
+variable "application" {}
 variable "environments" {
   type = "list"
   default = [
@@ -8,7 +9,7 @@ variable "environments" {
 
 resource "aws_s3_bucket" "assets" {
   count = 1
-  bucket = "fatt-${element(var.environments, count.index)}"
+  bucket = "fatt-${element(var.environments, count.index)}-${var.application}"
   acl = "public-read"
 
   website {
@@ -21,12 +22,12 @@ resource "aws_s3_bucket" "assets" {
   }
 
   logging {
-    target_bucket = "fatt-operations-logging"
-    target_prefix = "fatt-${element(var.environments, count.index)}/${var.env}/"
+    target_bucket = "fattist-operations-logging"
+    target_prefix = "fattist-${element(var.environments, count.index)}-${var.application}/${var.env}/"
   }
 
   tags {
-    Name = "fatt-${element(var.environments, count.index)}"
+    Name = "fatt-${element(var.environments, count.index)}-${var.application}"
   }
 
   versioning {
